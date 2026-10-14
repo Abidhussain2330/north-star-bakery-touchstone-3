@@ -1,0 +1,10 @@
+# Local download and submission archives (the website source is tracked instead)
+*.zip
+
+# Superseded assignment documents; the completed Milestone 3 report is tracked.
+Touchstone_3_Student_Template.docx
+Uddin_Taufiq_TouchstoneTask2.docx
+
+# Temporary Office and browser preview files
+~$*.docx
+.chrome-preview*/
