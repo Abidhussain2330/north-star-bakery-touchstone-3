@@ -6,6 +6,7 @@
   <meta name="description" content="Contact North Star Bakery or request a bakery pre-order for pickup.">
   <title>North Star Bakery | Contact and Pre-Order</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 <header>
@@ -26,17 +27,20 @@
     <h2>Send an Inquiry or Pre-Order Request</h2>
     <p>A request is not confirmed until the bakery responds.</p>
 
-    <form action="#" method="post">
+    <form action="#" method="post" novalidate>
       <fieldset>
         <legend>Your Contact Information</legend>
         <p><label for="name">Full Name</label><br>
-        <input type="text" id="name" name="name" required autocomplete="name"></p>
+        <input type="text" id="name" name="name" required autocomplete="name" aria-describedby="name-error">
+        <span id="name-error" class="form-error" aria-live="polite"></span></p>
 
         <p><label for="email">Email Address</label><br>
-        <input type="email" id="email" name="email" required autocomplete="email"></p>
+        <input type="email" id="email" name="email" required autocomplete="email" aria-describedby="email-error">
+        <span id="email-error" class="form-error" aria-live="polite"></span></p>
 
         <p><label for="pickup-date">Preferred Pickup Date</label><br>
-        <input type="date" id="pickup-date" name="pickup-date" required></p>
+        <input type="date" id="pickup-date" name="pickup-date" required aria-describedby="pickup-date-error">
+        <span id="pickup-date-error" class="form-error" aria-live="polite"></span></p>
       </fieldset>
 
       <fieldset>
@@ -46,15 +50,18 @@
         <label for="preorder">Pre-order</label>
         <input type="radio" id="question" name="request-type" value="general-question">
         <label for="question">General question</label>
+        <span id="request-type-error" class="form-error" aria-live="polite"></span>
 
         <p><label for="item-details">Item Details</label><br>
-        <textarea id="item-details" name="item-details" rows="5" cols="45" required minlength="5"></textarea></p>
+        <textarea id="item-details" name="item-details" rows="5" cols="45" required minlength="5" aria-describedby="item-details-error"></textarea>
+        <span id="item-details-error" class="form-error" aria-live="polite"></span></p>
 
         <p><label for="allergy-notes">Allergy Notes, if applicable</label><br>
         <textarea id="allergy-notes" name="allergy-notes" rows="4" cols="45"></textarea></p>
       </fieldset>
 
       <button type="submit">Send Request</button>
+      <p id="form-status" aria-live="polite"></p>
     </form>
   </section>
 

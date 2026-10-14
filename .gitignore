@@ -4,7 +4,12 @@
 # Superseded assignment documents; the completed Milestone 3 report is tracked.
 Touchstone_3_Student_Template.docx
 Uddin_Taufiq_TouchstoneTask2.docx
+Touchstone_4_Template_Aligned_v2.docx
 
 # Temporary Office and browser preview files
 ~$*.docx
 .chrome-preview*/
+
+# Local test dependencies and generated browser-test artifacts
+node_modules/
+test-results/

@@ -6,6 +6,7 @@
   <meta name="description" content="Browse breads, pastries, and cakes from North Star Bakery.">
   <title>North Star Bakery | Products</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 <header>
@@ -22,6 +23,13 @@
 <main>
   <h1>Our Breads, Pastries, and Cakes</h1>
   <p>Our selection changes with the season, but every item is prepared in small batches with quality ingredients.</p>
+
+  <section id="favorites-feature" aria-labelledby="favorites-heading">
+    <h2 id="favorites-heading">Save Your Bakery Favorites</h2>
+    <p>Choose the product categories you would like to remember before placing a pre-order. Your choices stay saved for your next visit.</p>
+    <div id="favorite-options" class="favorite-options"></div>
+    <p id="favorite-status" aria-live="polite"></p>
+  </section>
 
   <section>
     <h2>Artisan Breads</h2>

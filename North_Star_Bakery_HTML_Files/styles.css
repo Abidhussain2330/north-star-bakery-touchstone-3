@@ -91,6 +91,38 @@ section {
 
 section > :last-child { margin-bottom: 0; }
 
+.favorite-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.favorite-button {
+  color: var(--color-ink);
+  background: var(--color-cream);
+  border: 2px solid var(--color-terracotta);
+}
+
+.favorite-button[aria-pressed='true'] {
+  color: #ffffff;
+  background: var(--color-terracotta);
+}
+
+#favorite-status, #form-status { font-weight: 700; }
+
+.form-error {
+  display: block;
+  min-height: 1.5rem;
+  margin-top: 0.25rem;
+  color: #9c2f1c;
+  font-weight: 700;
+}
+
+input[aria-invalid='true'], textarea[aria-invalid='true'] {
+  border: 2px solid #9c2f1c;
+}
+
 figure { margin: 1.25rem 0 0; }
 figcaption { padding-top: 0.65rem; font-size: 0.95rem; }
 
