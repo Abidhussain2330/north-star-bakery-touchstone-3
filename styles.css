@@ -29,6 +29,18 @@ a { color: var(--color-terracotta); font-weight: 700; }
 
 a:hover { color: var(--color-ink); }
 
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.6rem 0.9rem;
+  color: #ffffff;
+  background: var(--color-ink);
+}
+
+.skip-link:focus-visible { top: 1rem; }
+
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--color-terracotta);
   outline-offset: 3px;

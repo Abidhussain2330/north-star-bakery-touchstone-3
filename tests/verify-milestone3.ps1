@@ -24,7 +24,8 @@ Assert-Contains $css 'grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)
 foreach ($page in $pages) {
   $html = Get-Content -Raw (Join-Path $siteRoot $page)
   Assert-Contains $html '<link[^>]+href="styles\.css"' "$page does not link to styles.css."
-  Assert-Contains $html '<main' "$page is missing its main landmark."
+  Assert-Contains $html '<a[^>]+href="#main"' "$page is missing a skip-to-content link."
+  Assert-Contains $html '<main[^>]+id="main"' "$page is missing the main skip-link target."
   Assert-Contains $html '<nav' "$page is missing its navigation landmark."
 
   $assetMatches = [regex]::Matches($html, '(?:src|srcset)="([^" ]+)')
@@ -34,6 +35,12 @@ foreach ($page in $pages) {
       throw "$page references a missing local asset: $assetPath"
     }
   }
+}
+
+$about = Get-Content -Raw (Join-Path $siteRoot 'about.html')
+Assert-Contains $about '<track[^>]+kind="captions"' 'The About video needs a captions track.'
+if (-not (Test-Path (Join-Path $siteRoot 'Bakery_c\bakery-behind-scenes_c.vtt'))) {
+  throw 'The About video captions file is missing.'
 }
 
 Write-Output 'Milestone 3 structural checks passed.'

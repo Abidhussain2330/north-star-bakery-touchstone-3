@@ -53,6 +53,22 @@ test('favorite status message names the saved product categories', () => {
   );
 });
 
+test('favorite restoration keeps only valid unique bakery categories', () => {
+  assert.equal(typeof milestone4.normalizeFavorites, 'function', 'normalizeFavorites should be exported');
+
+  assert.deepEqual(
+    milestone4.normalizeFavorites(['pastries', 'unknown-category', 'cakes', 'pastries', 7]),
+    ['pastries', 'cakes']
+  );
+});
+
+test('valid pre-order confirmation is clear that the form is a local demonstration', () => {
+  assert.equal(typeof milestone4.localDemoConfirmation, 'function', 'localDemoConfirmation should be exported');
+
+  assert.match(milestone4.localDemoConfirmation(), /validated locally/i);
+  assert.match(milestone4.localDemoConfirmation(), /No order was sent/i);
+});
+
 test('pages provide accessible hooks for favorites and inline validation feedback', () => {
   const products = fs.readFileSync(path.join(siteRoot, 'products.html'), 'utf8');
   const contact = fs.readFileSync(path.join(siteRoot, 'contact.html'), 'utf8');

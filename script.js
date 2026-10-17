@@ -43,6 +43,15 @@ function toggleFavorite(favorites, productId) {
     : [...favorites, productId];
 }
 
+function normalizeFavorites(favorites) {
+  if (!Array.isArray(favorites)) {
+    return [];
+  }
+
+  const validIds = new Set(productCategories.map((product) => product.id));
+  return [...new Set(favorites.filter((favorite) => validIds.has(favorite)))];
+}
+
 function favoriteStatusMessage(favorites) {
   if (!favorites.length) {
     return 'No favorites saved yet.';
@@ -54,6 +63,10 @@ function favoriteStatusMessage(favorites) {
     .map((product) => product.name);
 
   return `Saved favorites: ${names.join(' and ')}.`;
+}
+
+function localDemoConfirmation() {
+  return 'Your request was validated locally for this class demonstration. No order was sent. Your name and email are saved for next time.';
 }
 
 function getStoredData(key, fallbackValue) {
@@ -97,8 +110,7 @@ function initializeFavorites() {
     return;
   }
 
-  let favorites = getStoredData(storageKeys.favorites, []);
-  favorites = Array.isArray(favorites) ? favorites : [];
+  let favorites = normalizeFavorites(getStoredData(storageKeys.favorites, []));
   renderFavorites(container, favorites);
   status.textContent = favoriteStatusMessage(favorites);
 
@@ -108,7 +120,7 @@ function initializeFavorites() {
       return;
     }
 
-    favorites = toggleFavorite(favorites, button.dataset.productId);
+    favorites = normalizeFavorites(toggleFavorite(favorites, button.dataset.productId));
     saveData(storageKeys.favorites, favorites);
     renderFavorites(container, favorites);
     status.textContent = favoriteStatusMessage(favorites);
@@ -196,7 +208,7 @@ function initializePreorderForm() {
     }
 
     saveData(storageKeys.contactDetails, { name: values.name.trim(), email: values.email.trim() });
-    formStatus.textContent = 'Thanks! Your request is ready for the bakery to review. Your name and email are saved for next time.';
+    formStatus.textContent = localDemoConfirmation();
   });
 }
 
@@ -210,6 +222,8 @@ const milestone4Api = {
   getStoredData,
   initializeFavorites,
   initializePreorderForm,
+  localDemoConfirmation,
+  normalizeFavorites,
   productCategories,
   storageKeys,
   toggleFavorite,
