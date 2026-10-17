@@ -17,6 +17,11 @@ test('deployed North Star Bakery supports the required Touchstone 4 journeys', a
     await page.setViewportSize({ width, height: 900 });
     const response = await page.goto(siteUrl, { waitUntil: 'domcontentloaded' });
     expect(response.status()).toBe(200);
+    await page.waitForFunction(() =>
+      [...document.styleSheets].some((sheet) =>
+        sheet.href.endsWith('/styles.css') && sheet.cssRules.length > 0
+      )
+    );
     await expect(page.getByRole('heading', { name: 'Welcome to North Star Bakery' })).toBeVisible();
 
     const dimensions = await page.evaluate(() => ({
