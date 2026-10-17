@@ -33,7 +33,7 @@ test('form validation and saved contact details work as a local demonstration', 
   await expect(page.locator('#name-error')).toHaveText(/at least 2 characters/i);
   await expect(page.locator('#email-error')).toHaveText(/valid email address/i);
   await expect(page.locator('#item-details-error')).toHaveText(/at least 5 characters/i);
-  await page.locator('form').screenshot({ path: path.join(workspace, 'Touchstone_4_Screenshot_2_Validation.png') });
+  await page.locator('fieldset').first().screenshot({ path: path.join(workspace, 'Touchstone_4_Screenshot_2_Validation.png') });
 
   await page.getByLabel('Full Name').fill('Taufiq Uddin');
   await page.getByLabel('Email Address').fill('taufiq@example.com');
