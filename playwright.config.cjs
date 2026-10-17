@@ -1,7 +1,7 @@
 const path = require('node:path');
 
 module.exports = {
-  testDir: './North_Star_Bakery_HTML_Files/tests',
+  testDir: './tests',
   testMatch: 'milestone4.e2e.spec.cjs',
   use: {
     browserName: 'chromium',

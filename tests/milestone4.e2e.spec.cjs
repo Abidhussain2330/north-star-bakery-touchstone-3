@@ -1,8 +1,8 @@
 const path = require('node:path');
 const { test, expect } = require('@playwright/test');
 
-const workspace = path.resolve(__dirname, '..', '..');
-const fileUrl = (fileName) => `file:///${path.join(workspace, 'North_Star_Bakery_HTML_Files', fileName).replace(/\\/g, '/')}`;
+const workspace = path.resolve(__dirname, '..');
+const fileUrl = (fileName) => `file:///${path.join(workspace, fileName).replace(/\\/g, '/')}`;
 
 test('favorites, validation, and saved contact details work in the browser', async ({ page }) => {
   await page.goto(fileUrl('products.html'));

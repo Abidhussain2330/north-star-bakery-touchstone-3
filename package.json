@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "test": "node --test North_Star_Bakery_HTML_Files/tests/milestone4.test.js",
+    "test": "node --test tests/milestone4.test.js",
     "test:e2e": "playwright test --config=playwright.config.cjs"
   },
   "devDependencies": {
