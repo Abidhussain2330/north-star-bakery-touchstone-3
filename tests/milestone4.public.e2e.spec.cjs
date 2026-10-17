@@ -5,7 +5,13 @@ const pageNames = ['products.html', 'about.html', 'contact.html'];
 
 test('deployed North Star Bakery supports the required Touchstone 4 journeys', async ({ page }) => {
   const pageErrors = [];
+  const failedSiteRequests = [];
   page.on('pageerror', (error) => pageErrors.push(error.message));
+  page.on('response', (response) => {
+    if (response.url().startsWith(siteUrl) && response.status() >= 400) {
+      failedSiteRequests.push(`${response.status()} ${response.url()}`);
+    }
+  });
 
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
@@ -37,9 +43,15 @@ test('deployed North Star Bakery supports the required Touchstone 4 journeys', a
   await page.getByRole('button', { name: /pastries saved/i }).click();
   await expect(page.locator('#favorite-status')).toHaveText('Saved favorites: Cakes.');
 
-  await page.goto(`${siteUrl}contact.html`, { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => localStorage.removeItem('northStarBakeryContactDetails'));
+  await page.evaluate(() => localStorage.setItem('northStarBakeryFavorites', '{broken-json'));
   await page.reload();
+  await expect(page.locator('#favorite-status')).toHaveText('No favorites saved yet.');
+
+  await page.goto(`${siteUrl}contact.html`, { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => localStorage.setItem('northStarBakeryContactDetails', '{broken-json'));
+  await page.reload();
+  await expect(page.getByLabel('Full Name')).toHaveValue('');
+  await expect(page.getByLabel('Email Address')).toHaveValue('');
   await page.getByLabel('Full Name').fill('A');
   await page.getByLabel('Email Address').fill('invalid');
   await page.locator('#item-details').fill('cake');
@@ -63,4 +75,5 @@ test('deployed North Star Bakery supports the required Touchstone 4 journeys', a
   await expect(page.locator('#form-status')).toHaveText(/welcome back/i);
 
   expect(pageErrors).toEqual([]);
+  expect(failedSiteRequests).toEqual([]);
 });
